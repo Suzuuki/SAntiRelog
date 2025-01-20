@@ -13,7 +13,7 @@
 
     <description>AntiRelog</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <url>http://rubukkit.org/threads/125331/</url>
@@ -33,7 +33,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -73,8 +73,8 @@
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>sonatype</id>
@@ -87,11 +87,6 @@
         <repository>
             <id>codemc-repo</id>
             <url>https://repo.codemc.org/repository/maven-public/</url>
-        </repository>
-        <!-- supervanish-->
-        <repository>
-            <id>cubekrowd-repo</id>
-            <url>https://mavenrepo.cubekrowd.net/atifactory/repo/</url>
         </repository>
         <!-- vanishnopacket-->
         <repository>
@@ -115,9 +110,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.19.4-R0.1-SNAPSHOT</version>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!-- maven repo is dead, do `mvn clean install` your self https://github.com/Leymooo/AnnotatedYAMLConfiguration -->
@@ -135,14 +130,8 @@
         <dependency>
             <groupId>com.github.LeonMangler</groupId>
             <artifactId>SuperVanish</artifactId>
-            <version>6.2.6-2</version>
+            <version>6.2.18-3</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>  <!-- declare the exclusion here -->
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.kitteh</groupId>
