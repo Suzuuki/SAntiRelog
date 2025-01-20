@@ -17,7 +17,7 @@ import ru.leymooo.antirelog.manager.BossbarManager;
 import ru.leymooo.antirelog.manager.CooldownManager;
 import ru.leymooo.antirelog.manager.PowerUpsManager;
 import ru.leymooo.antirelog.manager.PvPManager;
-import ru.leymooo.antirelog.util.ProtocolLibUtils;
+import ru.leymooo.antirelog.util.PacketEventsUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,14 +39,17 @@ public class Antirelog extends JavaPlugin {
     private boolean protocolLib;
     private boolean worldguard;
 
+    private static Antirelog instance;
+
     @Override
     public void onEnable() {
+        instance = this;
         loadConfig();
         pvpManager = new PvPManager(settings, this);
         detectPlugins();
         cooldownManager = new CooldownManager(this, settings);
         if (protocolLib) {
-            ProtocolLibUtils.createListener(cooldownManager, pvpManager, this);
+            PacketEventsUtils.createListener(cooldownManager, pvpManager, this);
         }
         getServer().getPluginManager().registerEvents(new PvPListener(this, pvpManager, settings), this);
         getServer().getPluginManager().registerEvents(new CooldownListener(this, cooldownManager, pvpManager, settings), this);
@@ -213,5 +216,9 @@ public class Antirelog extends JavaPlugin {
 
     public CooldownManager getCooldownManager() {
         return cooldownManager;
+    }
+
+    public static Antirelog getInstance() {
+        return instance;
     }
 }

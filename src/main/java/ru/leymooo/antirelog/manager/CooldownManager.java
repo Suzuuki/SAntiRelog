@@ -1,14 +1,12 @@
 package ru.leymooo.antirelog.manager;
 
-import com.comphenix.protocol.events.PacketContainer;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import ru.leymooo.antirelog.Antirelog;
 import ru.leymooo.antirelog.config.Settings;
-import ru.leymooo.antirelog.util.ProtocolLibUtils;
+import ru.leymooo.antirelog.util.PacketEventsUtils;
 import ru.leymooo.antirelog.util.VersionUtils;
 
 import java.util.concurrent.Executors;
@@ -45,10 +43,7 @@ public class CooldownManager {
         }
         int durationInTicks = (int) Math.ceil(duration / 50.0);
 
-        PacketContainer packetContainer = ProtocolLibUtils.createCooldownPacket(type.getMaterial(), durationInTicks);
-
-        ProtocolLibUtils.sendPacket(packetContainer, player);
-
+        PacketEventsUtils.sendCooldownPacket(player, type.getMaterial(), durationInTicks);
 
         ScheduledFuture future = scheduledExecutorService.schedule(() -> {
             removeItemCooldown(player, type);
@@ -66,8 +61,7 @@ public class CooldownManager {
             future.cancel(false);
             futures.remove(player, type);
         }
-        PacketContainer packetContainer1 = ProtocolLibUtils.createCooldownPacket(type.getMaterial(), 0);
-        ProtocolLibUtils.sendPacket(packetContainer1, player);
+        PacketEventsUtils.sendCooldownPacket(player, type.getMaterial(), 0);
     }
 
     public void enteredToPvp(Player player) {
@@ -132,7 +126,8 @@ public class CooldownManager {
         ENDER_PEARL(Material.ENDER_PEARL, Settings::getEnderPearlCooldown),
         CHORUS(Material.matchMaterial("CHORUS_FRUIT"), Settings::getСhorusCooldown),
         TOTEM(VersionUtils.isVersion(13) ? Material.TOTEM_OF_UNDYING : Material.matchMaterial("TOTEM"), Settings::getTotemCooldown),
-        FIREWORK(VersionUtils.isVersion(13) ? Material.FIREWORK_ROCKET : Material.matchMaterial("FIREWORK"), Settings::getFireworkCooldown);
+        FIREWORK(VersionUtils.isVersion(13) ? Material.FIREWORK_ROCKET : Material.matchMaterial("FIREWORK"), Settings::getFireworkCooldown),
+        TRIDENT(Material.TRIDENT, Settings::getTridentCooldown);
 
         public static CooldownType[] values = values();
 

@@ -171,9 +171,9 @@
             <systemPath>${project.basedir}/libs/CMI-API9.7.0.1.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.comphenix.protocol</groupId>
-            <artifactId>ProtocolLib</artifactId>
-            <version>4.7.1-SNAPSHOT</version>
+            <groupId>com.github.retrooper</groupId>
+            <artifactId>packetevents-spigot</artifactId>
+            <version>2.7.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

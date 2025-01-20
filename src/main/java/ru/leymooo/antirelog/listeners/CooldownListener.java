@@ -1,5 +1,6 @@
 package ru.leymooo.antirelog.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -12,8 +13,11 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRiptideEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.Vector;
+import ru.leymooo.antirelog.Antirelog;
 import ru.leymooo.antirelog.config.Settings;
 import ru.leymooo.antirelog.event.PvpStartedEvent;
 import ru.leymooo.antirelog.event.PvpStoppedEvent;
@@ -144,6 +148,19 @@ public class CooldownListener implements Listener {
             addItemCooldownIfNeeded(event.getPlayer(), CooldownType.FIREWORK);
         }
 
+    }
+
+    @EventHandler
+    public void onRiptide(PlayerRiptideEvent event) {
+        if (!pvpManager.isBypassed(event.getPlayer()) && settings.getTridentCooldown() != 0 && event.getItem().getType() == Material.TRIDENT) {
+
+            if (checkCooldown(event.getPlayer(), CooldownManager.CooldownType.TRIDENT, settings.getTridentCooldown() * 1000L)) {
+                Bukkit.getScheduler().runTask(Antirelog.getInstance(), () -> event.getPlayer().setVelocity(new Vector(0,0,0)));
+                return;
+            }
+            cooldownManager.addCooldown(event.getPlayer(), CooldownManager.CooldownType.TRIDENT);
+            addItemCooldownIfNeeded(event.getPlayer(), CooldownManager.CooldownType.TRIDENT);
+        }
     }
 
     @EventHandler

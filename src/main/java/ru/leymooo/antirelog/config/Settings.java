@@ -35,6 +35,10 @@ public class Settings extends Configuration {
     @Key("chorus-cooldown")
     private int сhorusCooldown = 7;
 
+    @Comment({"Кулдаун для трезубца во время пвп", "Значение 0 отключает кулдаун"})
+    @Key("trident-cooldown")
+    private int tridentCooldown = 20;
+
     @Comment({"Кулдавн для фейверков во время пвп. (чтобы не убегали на элитрах)", "Значение 0 отключает кулдаун; -1 отключает использование во время пвп"})
     @Key("firework-cooldown")
     private int fireworkCooldown = 60;
@@ -251,6 +255,10 @@ public class Settings extends Configuration {
 
     public Set<String> getDisabledWorlds() {
         return disabledWorldsSet;
+    }
+
+    public int getTridentCooldown() {
+        return tridentCooldown;
     }
 
     @Override

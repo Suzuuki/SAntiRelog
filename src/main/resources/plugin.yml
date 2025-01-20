@@ -3,6 +3,8 @@ version: ${project.version}
 main: ru.leymooo.antirelog.Antirelog
 api-version: 1.13
 prefix: AntiRelog
+depend:
+  - packetevents
 softdepend: [Essentials, SuperVanish, PremiumVanish, VanishNoPacket, WorldGuard, LibsDisguises, CMI, ProtocolLib]
 authors: [Leymooo]
 description: AntiRelog
