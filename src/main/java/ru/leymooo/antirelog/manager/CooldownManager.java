@@ -26,11 +26,7 @@ public class CooldownManager {
     public CooldownManager(Antirelog plugin, Settings settings) {
         this.plugin = plugin;
         this.settings = settings;
-        if (plugin.isProtocolLibEnabled()) {
-            scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        } else {
-            scheduledExecutorService = null;
-        }
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     }
 
     public void addCooldown(Player player, CooldownType type) {
@@ -38,9 +34,6 @@ public class CooldownManager {
     }
 
     public void addItemCooldown(Player player, CooldownType type, long duration) {
-        if (!plugin.isProtocolLibEnabled()) {
-            return;
-        }
         int durationInTicks = (int) Math.ceil(duration / 50.0);
 
         PacketEventsUtils.sendCooldownPacket(player, type.getMaterial(), durationInTicks);
@@ -53,9 +46,6 @@ public class CooldownManager {
     }
 
     public void removeItemCooldown(Player player, CooldownType type) {
-        if (!plugin.isProtocolLibEnabled()) {
-            return;
-        }
         ScheduledFuture future = futures.get(player, type);
         if (future != null && !future.isCancelled()) {
             future.cancel(false);

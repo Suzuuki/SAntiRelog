@@ -25,7 +25,7 @@ public class PacketEventsUtils {
         PacketEvents.getAPI().getPlayerManager().sendPacket(player, packet);
     }
 
-    public static void createListener(CooldownManager cooldownManager, PvPManager pvPManager, Plugin plugin) {
+    public static void createListener(CooldownManager cooldownManager, PvPManager pvPManager) {
         Settings settings = cooldownManager.getSettings();
         PacketEvents.getAPI().getEventManager().registerListener(new PacketListenerAbstract(PacketListenerPriority.HIGH) {
             final List<CooldownType> types = Arrays.asList(CooldownType.CHORUS, CooldownType.ENDER_PEARL);

@@ -187,7 +187,7 @@ public class PvPManager {
     }
 
 
-    private void startPvp(Player player, boolean bypassed, boolean attacker) {
+    public void startPvp(Player player, boolean bypassed, boolean attacker) {
         if (!bypassed) {
             String message = Utils.color(settings.getMessages().getPvpStarted());
             if (!message.isEmpty()) {
@@ -202,7 +202,7 @@ public class PvPManager {
         player.setNoDamageTicks(0);
     }
 
-    private void updatePvpMode(Player player, boolean bypassed, int newTime) {
+    public void updatePvpMode(Player player, boolean bypassed, int newTime) {
         if (bypassed) {
             silentPvpMap.put(player, newTime);
         } else {

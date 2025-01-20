@@ -36,7 +36,6 @@ public class Antirelog extends JavaPlugin {
     private Settings settings;
     private PvPManager pvpManager;
     private CooldownManager cooldownManager;
-    private boolean protocolLib;
     private boolean worldguard;
 
     private static Antirelog instance;
@@ -48,9 +47,7 @@ public class Antirelog extends JavaPlugin {
         pvpManager = new PvPManager(settings, this);
         detectPlugins();
         cooldownManager = new CooldownManager(this, settings);
-        if (protocolLib) {
-            PacketEventsUtils.createListener(cooldownManager, pvpManager, this);
-        }
+        PacketEventsUtils.createListener(cooldownManager, pvpManager);
         getServer().getPluginManager().registerEvents(new PvPListener(this, pvpManager, settings), this);
         getServer().getPluginManager().registerEvents(new CooldownListener(this, cooldownManager, pvpManager, settings), this);
     }
@@ -176,10 +173,6 @@ public class Antirelog extends JavaPlugin {
         cooldownManager.clearAll();
     }
 
-    public boolean isProtocolLibEnabled() {
-        return protocolLib;
-    }
-
     public boolean isWorldguardEnabled() {
         return worldguard;
     }
@@ -195,7 +188,6 @@ public class Antirelog extends JavaPlugin {
             Bukkit.getPluginManager().registerEvents(new EssentialsTeleportListener(pvpManager, settings), this);
         } catch (ClassNotFoundException e) {
         }
-        protocolLib = Bukkit.getPluginManager().isPluginEnabled("ProtocolLib") && VersionUtils.isVersion(9);
     }
 
     public Settings getSettings() {
